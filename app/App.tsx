@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { View, Text, Image } from "react-native";
 import { Link, router } from "expo-router";
-import FullScreen from "./src/components/FullScreen";
-import FormInput from "./src/components/Form/FormInput";
-import Card from "./src/components/Card";
-import FormButton from "./src/components/Form/FormButton";
-import HeaderApp from "./src/components/header/header";
+import FullScreen from "../src/components/FullScreen";
+import FormInput from "../src/components/Form/FormInput";
+import Card from "../src/components/Card";
+import FormButton from "../src/components/Form/FormButton";
+import HeaderApp from "../src/components/header/header";
 
 export default function App() {
   const [username, setUsername] = useState("");
@@ -13,7 +13,7 @@ export default function App() {
 
   const handleLogin = () => {
     if (username === "teste123" && password === "teste123") {
-      <Link href="/List"></Link>
+      router.push("List")
     } else {
       alert("Credenciais inválidas. Tente novamente.");
     }
@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <FullScreen>
-      <Image source={require("../lesson-11-actionsheet/assets/car2.jpg")} />
+      <Image source={require("../assets/car2.jpg")} />
       <Card>
         <FormInput label="Username" value={username} onChangeText={setUsername} />
         <FormInput

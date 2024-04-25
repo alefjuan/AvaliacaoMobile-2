@@ -9,19 +9,18 @@ const HeaderApp = ({ onPressMenu }) => {
         flexDirection: "row",
         paddingHorizontal: 30,
         position: "absolute",
-        top: 30,
-        // top:0, O CERTO É ESSE MAS FICA RUIM DE VER
+        top: 0,
         left: 0,
         right: 0,
+        zIndex: 2,
         height: 50,
         alignItems: "center",
-        backgroundColor: "gray",
+        //backgroundColor: "gray",
         borderBottomWidth: 1,
-        shadowColor: "#000",
         borderBottomColor: "#ccc",
       }}
     >
-        <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 20 }}>
+      <Text style={{ fontSize: 16, fontWeight: "bold", marginLeft: 20 }}>
         Avaliação Alef
       </Text>
       <View style={{ flex: 1, alignItems: "flex-end" }}>
@@ -29,7 +28,6 @@ const HeaderApp = ({ onPressMenu }) => {
           <FontAwesome name="bars" size={24} color="black"/>
         </TouchableOpacity>
       </View>
-      
     </View>
   );
 };

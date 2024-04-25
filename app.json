@@ -17,16 +17,28 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.app",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "YOUR_REVERSED_CLIENT_ID"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleSignIn": {
+          "certificateHash": "YOUR_APP_CERTIFICATE_HASH"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "scheme": "aula-11-actionsheet"
   }
 }
