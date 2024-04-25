@@ -1,33 +1,37 @@
-import {
-  ActionSheetProvider,
-  connectActionSheet,
-} from "@expo/react-native-action-sheet";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
-import MyComponent from "./src/components/MyComponent";
-import MyComponent2 from "./src/components/MyComponent2";
+import React, { useState } from "react";
+import { View, Text, Image } from "react-native";
+import { Link, router } from "expo-router";
+import FullScreen from "./src/components/FullScreen";
+import FormInput from "./src/components/Form/FormInput";
+import Card from "./src/components/Card";
+import FormButton from "./src/components/Form/FormButton";
+import HeaderApp from "./src/components/header/header";
 
-function App() {
+export default function App() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    if (username === "teste123" && password === "teste123") {
+      <Link href="/List"></Link>
+    } else {
+      alert("Credenciais inválidas. Tente novamente.");
+    }
+  };
+
   return (
-    <ActionSheetProvider>
-      <View style={styles.container}>
-        <MyComponent />
-        <MyComponent2 />
-        <StatusBar style="auto" />
-      </View>
-    </ActionSheetProvider>
+    <FullScreen>
+      <Image source={require("../lesson-11-actionsheet/assets/car2.jpg")} />
+      <Card>
+        <FormInput label="Username" value={username} onChangeText={setUsername} />
+        <FormInput
+          label="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        />
+        <FormButton onPress={handleLogin} title="Entrar" />
+      </Card>
+    </FullScreen>
   );
 }
-
-const ConnectedApp = connectActionSheet(App);
-
-export default ConnectedApp;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
