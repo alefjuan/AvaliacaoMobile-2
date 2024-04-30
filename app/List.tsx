@@ -1,14 +1,14 @@
-import { View, Text, TextInput, StyleSheet, FlatList, Dimensions } from "react-native";
+import { View, Text, StyleSheet, SectionList } from "react-native";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
 import FullScreen from "../src/components/FullScreen";
 import data from "../src/components/services/data";
-import { FontAwesome } from "@expo/vector-icons";
-import HeaderApp from "../src/components/header/header";
+import HeaderApp from "../src/components/header/HeaderApp";
+import { Stack } from "expo-router";
 
 export default function List() {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm] = useState("");
   const filteredData = data.filter(item =>
     Object.values(item).some(
       value =>
@@ -17,19 +17,48 @@ export default function List() {
     )
   );
 
+  // Aqui vou agrupar por marca
+  const groupedData = filteredData.reduce((acc, curr) => {
+    const brand = curr.brand.toUpperCase();
+    if (!acc[brand]) {
+      acc[brand] = [];
+    }
+    acc[brand].push(curr);
+    return acc;
+  }, {});
+
+  const sections = Object.keys(groupedData).map(brand => ({
+    title: brand,
+    data: groupedData[brand],
+  }));
+
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
       <Text>{item.id}</Text>
-      <Text>{item.brand}</Text>
       <Text>{item.model}</Text>
       <Text>{item.year}</Text>
     </View>
   );
 
+  const renderSectionHeader = ({ section: { title } }) => (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionHeaderText}>{title}</Text>
+    </View>
+  );
+
   return (
     <FullScreen>
-      <HeaderApp onPressMenu={undefined}></HeaderApp>
-      <View style={[styles.container, { top: 90 }]}>
+      <Stack.Screen options={
+        {
+          headerRight :()=><Text><HeaderApp/></Text>,
+          title:"Lista de Veículos"
+          }
+        }>
+      </Stack.Screen>
+      {/* <HeaderApp></HeaderApp> */}
+      
+      {/* AQUI JAZ UMA TENTATIVA QUE DÁ CERTO MAS TO COM POUCO TEMPO PRA MEXER COM CSS
+      <View style={[styles.container, { top: 50, zIndex:1 }]}>
         <FontAwesome name="search" size={30} color="dimgrey" />
         <TextInput
           style={styles.input}
@@ -37,17 +66,17 @@ export default function List() {
           onChangeText={text => setSearchTerm(text)}
           value={searchTerm}
         />
-      </View>
-      <View style={[styles.borderList, { top: 80 }]}>
-      <FlatList
-        data={filteredData}
+      </View> */}
+      <SectionList
+        sections={sections}
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
+        renderSectionHeader={renderSectionHeader}
+        keyExtractor={(item, index) => item + index}
       />
-      </View>
     </FullScreen>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -78,18 +107,25 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 8,
     borderWidth: 1,
-    //top:10,       
     marginVertical: 5,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 10,
     position: "relative",
     marginHorizontal:10,
-   },
-   borderList:
-   {
+  },
+  sectionHeader: {
+    margin:10,
+    backgroundColor: "lightgray",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
     borderBottomWidth: 1,
     borderBottomColor: "black",
-    marginVertical: 10,
-   }
+    textAlign:"center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  sectionHeaderText: {
+    fontWeight: "bold",
+  },
 });
