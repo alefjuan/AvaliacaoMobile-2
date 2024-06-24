@@ -1,5 +1,5 @@
 # AvaliacaoMobile-2
-##Repo destinado a resolução de avaliação 2 na disciplina de Mobile.
+## Repo destinado a resolução de avaliação 2 na disciplina de Mobile.
 
 ### Como Executar:
   Rodar no Android
