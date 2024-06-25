@@ -2,7 +2,11 @@
 ## Repo destinado a resolução de avaliação 2 na disciplina de Mobile. Criei testes para a Avaliação 1
 
 ### Como Executar:
-  Rodar no Android
+  - Rodar no Android
+  - Feito com Yarn
+  - Executei o tutorial do link para instalar a parte dos testes unitários
+  - executar "yarn test"
+  - ![image](https://github.com/alefjuan/AvaliacaoMobile-2/assets/125289650/1f14df0a-5863-46f9-b38d-e2bc0880f7e6)
 
 ## Questões
 ### [2 pontos]	Qual a diferença entre testes unitários e testes E2E (End to End) em aplicações mobile? (responda no Readme.md do repositório github).
